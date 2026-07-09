@@ -1,1 +1,184 @@
-:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;background:#f4f7fb}*{box-sizing:border-box}body{margin:0}main{max-width:1320px;margin:0 auto;padding:32px}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}h1{margin:0;font-size:36px}h2{margin-top:0}p{color:#5f6b7a}.upload{background:#172033;color:white;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700}.upload input{display:none}.notice{padding:12px 16px;border-radius:12px;background:#e8eef8;margin-bottom:18px}.grid{display:grid;gap:16px}.kpis{grid-template-columns:repeat(5,1fr);margin-bottom:20px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}.card,.panel{background:white;border:1px solid #e1e7ef;border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(23,32,51,.05)}.label{color:#6b7687;font-size:13px;margin-bottom:8px}.kpi{font-size:26px;font-weight:800}.adu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.progress-wrap{margin-top:20px}.progress-label{font-weight:700;margin-bottom:8px}.progress{height:16px;background:#e6ebf2;border-radius:999px;overflow:hidden}.progress>div{height:100%;background:#172033}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid #e6ebf2;padding:10px 8px;text-align:left}th{color:#5f6b7a;font-size:12px;text-transform:uppercase}@media(max-width:1000px){.kpis{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start;gap:16px}}
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: #172033;
+  background: #f4f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #172033, #253858);
+  color: white;
+  border-radius: 28px;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.hero p {
+  max-width: 740px;
+  color: #dce6f3;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.upload {
+  background: white;
+  color: #172033;
+  border-radius: 999px;
+  padding: 14px 20px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.upload input {
+  display: none;
+}
+
+.notice {
+  background: #e8eef8;
+  border: 1px solid #d5dfed;
+  padding: 12px 16px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.kpis {
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 20px;
+}
+
+.card,
+.panel {
+  background: white;
+  border: 1px solid #e1e7ef;
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 10px 28px rgba(23, 32, 51, 0.06);
+}
+
+.label {
+  color: #6b7687;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.kpi {
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.note {
+  color: #6b7687;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.panel.large {
+  min-height: 420px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.progress-wrap {
+  margin-top: 22px;
+}
+
+.progress-label {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.progress {
+  height: 18px;
+  background: #e6ebf2;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress > div {
+  height: 100%;
+  background: #172033;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e6ebf2;
+  padding: 10px 8px;
+  text-align: left;
+}
+
+th {
+  color: #5f6b7a;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1050px) {
+  .kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
