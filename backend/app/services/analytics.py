@@ -131,6 +131,10 @@ def build_budget_analysis(transactions, budget):
         rows.append({
             "category": category,
             "monthly_budget": round(monthly_budget, 2) if budget_row else None,
+<<<<<<< HEAD
+=======
+            "suggested_budget": round(max(average_actual, historical_normal) / 10) * 10 if average_actual else 0,
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
             "average_actual": round(average_actual, 2),
             "latest_actual": round(latest_actual, 2),
             "historical_normal": round(historical_normal, 2),
@@ -172,6 +176,13 @@ def build_budget_analysis(transactions, budget):
                 "source_account": transaction.get("source_account"),
             })
     outliers.sort(key=lambda row: row["amount"] - row["baseline"], reverse=True)
+<<<<<<< HEAD
+=======
+    rolling_monthly = defaultdict(float)
+    for transaction, _category, amount in transaction_spending:
+        if not transaction.get("exclude_from_rolling_average"):
+            rolling_monthly[str(transaction.get("date", ""))[:7]] += amount
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
 
     trends = [
         {
@@ -220,9 +231,17 @@ def build_budget_analysis(transactions, budget):
             {
                 "month": month,
                 "total": round(max(sum(monthly[month].values()), 0), 2),
+<<<<<<< HEAD
                 "has_outlier": any(row["date"].startswith(month) for row in outliers),
             }
             for month in months
+=======
+                "monthly_budget": round(total_budget, 2),
+                "rolling_average": round(sum(max(rolling_monthly[item], 0) for item in months[max(0, index - 11):index]) / max(len(months[max(0, index - 11):index]), 1), 2),
+                "has_outlier": any(row["date"].startswith(month) for row in outliers),
+            }
+            for index, month in enumerate(months)
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
         ],
         "budget": budget,
         "outliers": outliers,

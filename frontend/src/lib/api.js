@@ -37,6 +37,20 @@ export async function updateTransactionCategory(transactionId, category, parentC
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
+<<<<<<< HEAD
+=======
+export async function updateTransaction(transactionId, payload) {
+  const res=await fetch(`${API_BASE}/api/transactions/${transactionId}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}); if(!res.ok)throw new Error(await res.text()); return res.json();
+}
+export async function previewCategory(transactionId, category, parent_category) {
+  const res=await fetch(`${API_BASE}/api/transactions/${transactionId}/category-preview`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({category,parent_category})}); if(!res.ok)throw new Error(await res.text()); return res.json();
+}
+export async function saveCategoryMatches(payload) {
+  const res=await fetch(`${API_BASE}/api/transactions/bulk-category`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}); if(!res.ok)throw new Error(await res.text()); return res.json();
+}
+export async function getInstitutions(){const res=await fetch(`${API_BASE}/api/institutions`);if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function renameInstitution(name,payload){const res=await fetch(`${API_BASE}/api/institutions/${encodeURIComponent(name)}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
 export async function resetSession() {
   const res = await fetch(`${API_BASE}/api/session`, { method: "DELETE" });
   if (!res.ok) throw new Error(await res.text());
@@ -58,6 +72,18 @@ export async function applyCategoryRule(prompt) {
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
+<<<<<<< HEAD
+=======
+export async function getCategoryRules(){const res=await fetch(`${API_BASE}/api/category-rules`);if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function deleteCategoryRule(merchant){const res=await fetch(`${API_BASE}/api/category-rules/${encodeURIComponent(merchant)}`,{method:"DELETE"});if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function createCategory(payload){const res=await fetch(`${API_BASE}/api/categories`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function updateCategory(name,payload){const res=await fetch(`${API_BASE}/api/categories/${encodeURIComponent(name)}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function updateProject(projectId,payload){const res=await fetch(`${API_BASE}/api/projects/${projectId}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function getTags(){const res=await fetch(`${API_BASE}/api/tags`);if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function createTag(payload){const res=await fetch(`${API_BASE}/api/tags`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function updateTag(name,payload){const res=await fetch(`${API_BASE}/api/tags/${encodeURIComponent(name)}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+export async function resetAreas(payload){const res=await fetch(`${API_BASE}/api/session/reset`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
 export async function getProjects() {
   const res = await fetch(`${API_BASE}/api/projects`);
   if (!res.ok) throw new Error(await res.text());
@@ -96,6 +122,10 @@ export async function createGoal(goal) {
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
+<<<<<<< HEAD
+=======
+export async function requestPlanningAssistant(payload){const res=await fetch(`${API_BASE}/api/planning/assistant`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});if(!res.ok)throw new Error(await res.text());return res.json()}
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
 export async function addProjectAccount(projectId, account) {
   const res = await fetch(`${API_BASE}/api/projects/${projectId}/accounts`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(account) });
   if (!res.ok) throw new Error(await res.text());
@@ -108,8 +138,13 @@ export async function exportProject(projectId) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a"); link.href=url; link.download=`fcc-project-${projectId}.json`; link.click(); URL.revokeObjectURL(url);
 }
+<<<<<<< HEAD
 export async function downloadBackup() {
   const res = await fetch(`${API_BASE}/api/backup`);
+=======
+export async function downloadBackup(clientSettings={}) {
+  const res = await fetch(`${API_BASE}/api/backup`, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(clientSettings)});
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
   if (!res.ok) throw new Error(await res.text());
   const blob = await res.blob();
   const disposition = res.headers.get("content-disposition") || "";

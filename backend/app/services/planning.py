@@ -26,6 +26,10 @@ def create_asset(payload):
         "monthly_contribution": float(payload.get("monthly_contribution", 0) or 0),
         "institution": str(payload.get("institution", "")).strip(),
         "notes": str(payload.get("notes", "")).strip(),
+<<<<<<< HEAD
+=======
+        "linked_goal_id": str(payload.get("linked_goal_id", "")).strip() or None,
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
     }
 
 
@@ -42,6 +46,10 @@ def create_goal(payload):
         "annual_rate": float(payload.get("annual_rate", 0) or 0),
         "target_date": str(payload.get("target_date", "")).strip() or None,
         "priority": str(payload.get("priority", "medium")).strip(),
+<<<<<<< HEAD
+=======
+        "pursuit_mode": str(payload.get("pursuit_mode", "parallel")).strip(),
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
     }
 
 
@@ -85,7 +93,16 @@ def portfolio_analysis(assets, transactions, goals):
             monthly[month]["income"] += abs(float(transaction.get("amount", 0)))
         elif transaction.get("is_spending") and not transaction.get("is_transfer"):
             monthly[month]["expenses"] += spending_amount(transaction)
+<<<<<<< HEAD
     history = [{"period": month, **{key: round(value, 2) for key, value in values.items()}, "net_cash_flow": round(values["income"] - values["expenses"], 2)} for month, values in sorted(monthly.items())[-12:]]
+=======
+    history = []
+    running_net_worth = net_worth
+    for month, values in sorted(monthly.items())[-12:]:
+        cash_flow = values["income"] - values["expenses"]
+        running_net_worth += cash_flow
+        history.append({"period":month,**{key:round(value,2) for key,value in values.items()},"net_cash_flow":round(cash_flow,2),"net_worth":round(running_net_worth,2)})
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
     annual_income = sum(row["income"] for row in history)
     annual_expenses = sum(row["expenses"] for row in history)
     projected = []
@@ -100,6 +117,18 @@ def portfolio_analysis(assets, transactions, goals):
         if row["kind"] not in liability_kinds:
             kinds[row["kind"]] += row["current_value"]
     recommendations = []
+<<<<<<< HEAD
+=======
+    portfolio_terms = {"fidelity":"investment account","vanguard":"investment account","schwab":"investment account","mortgage":"mortgage","heloc":"line of credit","loan":"loan","401k":"retirement account","ira":"retirement account","insurance":"insurance policy"}
+    existing = " ".join(f"{row.get('name','')} {row.get('institution','')}" for row in assets).lower()
+    candidates, seen = [], set()
+    for transaction in transactions:
+        description = str(transaction.get("description", "")).lower()
+        for term, kind in portfolio_terms.items():
+            if term in description and term not in existing and term not in seen:
+                seen.add(term)
+                candidates.append({"name":str(transaction.get("description", term)).title(),"kind":kind,"institution":str(transaction.get("source_account", "")),"missing_fields":["current balance","interest or growth rate","monthly contribution/payment"]})
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
     if assets_total and max(kinds.values(), default=0) / assets_total > .6:
         recommendations.append({"title":"Review concentration risk","reason":"More than 60% of tracked assets are in one asset type.","source":EDUCATION_SOURCES["diversification"]})
     if liabilities_total:
@@ -108,4 +137,8 @@ def portfolio_analysis(assets, transactions, goals):
         recommendations.append({"title":"Document insurance needs","reason":"Review income replacement, dependents, debts, and end-of-life costs before evaluating coverage.","source":EDUCATION_SOURCES["insurance"]})
     if goals:
         recommendations.append({"title":"Separate major goals","reason":"Track major goals independently and align each time horizon with its funding approach.","source":EDUCATION_SOURCES["goals"]})
+<<<<<<< HEAD
     return {"assets_total":round(assets_total,2),"liabilities_total":round(liabilities_total,2),"net_worth":round(net_worth,2),"allocation":[{"kind":key,"value":round(value,2)} for key,value in kinds.items()],"history":history,"projection":projected,"goals":goal_analysis(goals),"recommendations":recommendations}
+=======
+    return {"assets_total":round(assets_total,2),"liabilities_total":round(liabilities_total,2),"net_worth":round(net_worth,2),"allocation":[{"kind":key,"value":round(value,2)} for key,value in kinds.items()],"history":history,"projection":projected,"goals":goal_analysis(goals),"recommendations":recommendations,"portfolio_candidates":candidates}
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d

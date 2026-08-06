@@ -6,7 +6,12 @@ ALIASES = {
     "Mortgage": ["mortgage", "pnc lending"],
     "HELOC": ["heloc", "home equity"],
     "Gas Stations": ["fuel", "costco gas", "maverik", "chevron", "shell", "sinclair"],
+<<<<<<< HEAD
     "Groceries, Shopping": ["groceries", "walmart", "costco", "grocery", "smith", "macey", "harmons"],
+=======
+    "Groceries": ["groceries", "grocery", "smith", "macey", "harmons"],
+    "Shopping": ["walmart", "costco", "amazon", "target", "shopping"],
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
     "YT Premium": ["youtube", "google youtube"],
     "Netflix": ["netflix"],
     "Internet": ["internet", "comcast", "xfinity", "google fiber"],
@@ -22,13 +27,42 @@ ALIASES = {
 }
 
 RECOMMENDED_CATEGORIES = [
+<<<<<<< HEAD
     {"category": "Restaurants", "parent_category": "Groceries, Shopping", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
     {"category": "Household Supplies", "parent_category": "Groceries, Shopping", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
+=======
+    {"category": "Groceries", "parent_category": "Lifestyle & Household", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
+    {"category": "Shopping", "parent_category": "Lifestyle & Household", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
+    {"category": "Restaurants", "parent_category": "Lifestyle & Household", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
+    {"category": "Household Supplies", "parent_category": "Lifestyle & Household", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
     {"category": "Healthcare", "parent_category": "Utilities/Insurance", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
     {"category": "Clothing", "parent_category": "Discretionary", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
     {"category": "Electronics", "parent_category": "Discretionary", "paid_from": "", "monthly_budget": 0, "is_suggested": True},
 ]
 
+<<<<<<< HEAD
+=======
+IDENTIFIED_CATEGORY_CATALOG = [
+    {"category":"Mortgage","parent_category":"Housing & Debt"}, {"category":"HELOC","parent_category":"Housing & Debt"},
+    {"category":"Gas Stations","parent_category":"Transportation"}, {"category":"Car Expense","parent_category":"Transportation"},
+    {"category":"Groceries","parent_category":"Lifestyle & Household"}, {"category":"Shopping","parent_category":"Lifestyle & Household"},
+    {"category":"Restaurants","parent_category":"Lifestyle & Household"}, {"category":"Household Supplies","parent_category":"Lifestyle & Household"},
+    {"category":"Clothing","parent_category":"Lifestyle & Household"}, {"category":"Healthcare","parent_category":"Health & Insurance"},
+    {"category":"Auto Insurance","parent_category":"Health & Insurance"}, {"category":"Internet","parent_category":"Utilities & Services"},
+    {"category":"City Utilities","parent_category":"Utilities & Services"}, {"category":"Power","parent_category":"Utilities & Services"},
+    {"category":"Cell Phones","parent_category":"Utilities & Services"}, {"category":"Alarm (Vivint)","parent_category":"Utilities & Services"},
+    {"category":"YT Premium","parent_category":"Subscriptions & Entertainment"}, {"category":"Netflix","parent_category":"Subscriptions & Entertainment"},
+    {"category":"Tithing/Fast","parent_category":"Giving"}, {"category":"AMEX","parent_category":"Transfers & Payments"},
+    {"category":"Capital One","parent_category":"Transfers & Payments"}, {"category":"Bank of America","parent_category":"Transfers & Payments"},
+    {"category":"SBA EIDL","parent_category":"Housing & Debt"},
+]
+
+
+def identified_categories():
+    return [{**row,"paid_from":"","monthly_budget":0,"is_suggested":True} for row in IDENTIFIED_CATEGORY_CATALOG]
+
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
 KNOWN_MERCHANTS = [
     "mcdonald", "walmart", "costco", "amazon", "target", "netflix", "doordash",
     "uber eats", "chick fil a", "maverik", "chevron", "shell", "home depot",
@@ -168,6 +202,30 @@ def apply_category_to_similar(selected, transactions, category, parent_category)
     }
 
 
+<<<<<<< HEAD
+=======
+def preview_category_matches(selected, transactions):
+    selected_key = merchant_key(selected.get("description", ""))
+    selected_amount = round(abs(float(selected.get("amount", 0) or 0)), 2)
+    exact, fuzzy = [], []
+    for transaction in transactions:
+        if transaction.get("is_transfer") or transaction.get("is_income"):
+            continue
+        candidate_key = merchant_key(transaction.get("description", ""))
+        candidate_amount = round(abs(float(transaction.get("amount", 0) or 0)), 2)
+        ratio = SequenceMatcher(None, selected_key, candidate_key).ratio()
+        exact_match = selected_key == candidate_key and selected_amount == candidate_amount
+        if transaction.get("id") == selected.get("id") or exact_match:
+            exact.append({"id":transaction.get("id"),"description":transaction.get("description"),"date":transaction.get("date"),"amount":transaction.get("amount"),"confidence":1.0,"match_type":"exact"})
+        elif ratio >= .62 or (selected_amount and abs(candidate_amount-selected_amount)/selected_amount <= .1):
+            amount_similarity = max(0, 1 - abs(candidate_amount-selected_amount) / max(selected_amount, candidate_amount, 1))
+            relevance = ratio * .88 + amount_similarity * .12
+            fuzzy.append({"id":transaction.get("id"),"description":transaction.get("description"),"date":transaction.get("date"),"amount":transaction.get("amount"),"confidence":round(ratio,2),"relevance":round(relevance,3),"match_type":"similar"})
+    fuzzy.sort(key=lambda row: row.get("relevance", 0), reverse=True)
+    return {"exact_matches":exact,"fuzzy_matches":fuzzy}
+
+
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
 def assign_budget_categories(transactions, budget):
     candidates = []
     for row in budget:

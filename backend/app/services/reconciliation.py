@@ -68,6 +68,52 @@ def reconcile_card_payments(transactions, budget=None):
             matched_transaction["reconciliation_match_id"] = match_id
         matched_pairs += 1
 
+<<<<<<< HEAD
+=======
+    # Reconcile exact opposite ledger entries across different providers. This catches
+    # ordinary account-to-account transfers without relying on bank-specific wording.
+    internal_pairs = 0
+    used_ids = {
+        transaction.get("id")
+        for transaction in transactions
+        if transaction.get("reconciliation_status") == "matched"
+    }
+    candidates = [
+        transaction for transaction in transactions
+        if transaction.get("id") not in used_ids
+        and not transaction.get("manual_classification")
+        and float(transaction.get("amount", 0) or 0) != 0
+    ]
+    for transaction in sorted(candidates, key=lambda row: str(row.get("date", ""))):
+        if transaction.get("id") in used_ids:
+            continue
+        transaction_date = _transaction_date(transaction)
+        if not transaction_date:
+            continue
+        amount = round(float(transaction.get("amount", 0) or 0), 2)
+        matches = []
+        for counterpart in candidates:
+            if counterpart.get("id") == transaction.get("id") or counterpart.get("id") in used_ids:
+                continue
+            if counterpart.get("source_account") == transaction.get("source_account"):
+                continue
+            counterpart_date = _transaction_date(counterpart)
+            counterpart_amount = round(float(counterpart.get("amount", 0) or 0), 2)
+            if not counterpart_date or counterpart_amount != -amount:
+                continue
+            days_apart = abs((counterpart_date - transaction_date).days)
+            if days_apart <= 5:
+                matches.append((days_apart, str(counterpart.get("date", "")), counterpart))
+        if not matches:
+            continue
+        _, _, counterpart = min(matches, key=lambda item: (item[0], item[1]))
+        match_id = f"TRANSFER-{min(transaction.get('id',''),counterpart.get('id',''))}-{max(transaction.get('id',''),counterpart.get('id',''))}"
+        for side in [transaction, counterpart]:
+            side.update({"major_category":"Transfers","subcategory":"Account Transfer","is_income":False,"is_transfer":True,"is_spending":False,"reconciliation_status":"matched_internal_transfer","reconciliation_match_id":match_id})
+            used_ids.add(side.get("id"))
+        internal_pairs += 1
+
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
     paid_from_accounts = sorted(
         {
             str(row.get("paid_from", "")).strip()
@@ -77,6 +123,11 @@ def reconcile_card_payments(transactions, budget=None):
     )
     return {
         "matched_pairs": matched_pairs,
+<<<<<<< HEAD
+=======
+        "matched_internal_transfer_pairs": internal_pairs,
+        "total_reconciled_pairs": matched_pairs + internal_pairs,
+>>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
         "excluded_payment_transactions": len(amex_payments) + len(afcu_payments),
         "unmatched_payments": sum(
             transaction.get("reconciliation_status") == "unmatched_payment"
