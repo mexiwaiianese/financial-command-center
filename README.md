@@ -56,3 +56,15 @@ Frontend: http://localhost:5173
 4. Add debt payoff calculator.
 5. Add net worth tracker.
 6. Add monthly executive review.
+
+## Teller bank sync
+
+FCC supports secure Teller Connect enrollments and a once-per-weekend catch-up sync. When the backend starts on Saturday or Sunday in `America/Denver`, it syncs if that weekend has not already completed successfully.
+
+1. Create a Teller developer application and download its certificate and private key.
+2. Copy `backend/.env.example` to `backend/.env` and enter the absolute certificate paths.
+3. Copy `frontend/.env.example` to `frontend/.env.local` and enter the public Teller application ID.
+4. Restart FCC and use **Connect Bank**. Access tokens are stored in macOS Keychain; bank credentials never enter FCC.
+5. After confirming a manual sync, run `scripts/install_weekend_sync_macos.sh` to start the backend at login. The backend checks the local weekend marker and syncs only once per weekend.
+
+Teller transactions and sync markers are persisted in the ignored local database at `backend/data/fcc.sqlite`.

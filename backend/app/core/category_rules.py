@@ -17,14 +17,24 @@ def categorize_transaction(description: str, amount: float) -> CategoryResult:
         return CategoryResult("Income", "Employment Income", True, False, False)
     if any(k in text for k in ["REFUND", "REIMBURSEMENT"]):
         return CategoryResult("Income", "Refund/Reimbursement", True, False, False)
+    if any(k in text for k in [
+        "AUTOPAY PAYMENT",
+        "ONLINE PAYMENT",
+        "MOBILE PAYMENT",
+        "ELECTRONIC PAYMENT RECEIVED",
+        "CREDIT CARD PAYMENT",
+        "CRCARDPMT",
+        "AMEX EPAYMENT",
+    ]):
+        return CategoryResult("Transfers", "Credit Card Payment", False, True, False)
+    if any(k in text for k in ["TRANSFER", "VENMO", "ZELLE", "ACHIEVE PL"]):
+        return CategoryResult("Transfers", "Internal/Peer Transfer", False, True, False)
+    if "AUTOMATIC DEPOSIT" in text and any(k in text for k in ["WELLS FARGO", "AFCU OLB", "CAPITAL ONE"]):
+        return CategoryResult("Transfers", "Cross-account Transfer", False, True, False)
     if "PNC" in text:
         return CategoryResult("Housing", "Mortgage")
     if "HELOC" in text or "HOME EQUITY" in text:
         return CategoryResult("Housing", "HELOC Payment", notes="About $1,350/month interest; ADU remodel capped around $17,000; remainder is legacy consolidated debt.")
-    if any(k in text for k in ["AUTOPAY PAYMENT", "ONLINE PAYMENT", "CREDIT CARD PAYMENT", "AMEX EPAYMENT"]):
-        return CategoryResult("Transfers", "Credit Card Payment", False, True, False)
-    if any(k in text for k in ["TRANSFER", "VENMO", "ZELLE"]):
-        return CategoryResult("Transfers", "Internal/Peer Transfer", False, True, False)
     if "WALMART" in text:
         return CategoryResult("Groceries & Household", "Walmart")
     if "COSTCO" in text:

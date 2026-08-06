@@ -8,3 +8,5 @@ dist/
 *.sqlite
 *.db
 *.log
+backend/data/
+frontend/.env.local
