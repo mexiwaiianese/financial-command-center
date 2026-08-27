@@ -2,6 +2,34 @@
 
 A local-first personal finance dashboard for household cash flow, budgeting, debt, net worth planning, and ADU/rental tracking.
 
+## Presentation beta
+
+The default frontend route is a self-contained, seeded demo of the Financial Command Center. It uses fictional household data, does not connect to Teller, and does not require bank credentials or API secrets. The original import, categorization, planning, and account-management workspace remains available from **Data workspace** or at `http://localhost:5173/?workspace=1`.
+
+### Launch on Windows (PowerShell)
+
+Open two PowerShell windows from the repository root.
+
+Backend (needed for the original data workspace):
+
+```powershell
+cd backend
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+Frontend:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` for the beta. The presentation demo itself is frontend-only and remains usable if Teller is not configured.
+
 ## Included in this MVP
 
 - FastAPI backend

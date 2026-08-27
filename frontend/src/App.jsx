@@ -4,6 +4,7 @@ import { AlertTriangle, ArrowLeftRight, CheckCircle2, ChevronRight, Columns3, Do
 import { Bar, BarChart, CartesianGrid, Cell, ComposedChart, Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { addProjectAccount, applyCategoryRule, assignTransactionProject, createAsset, createCategory, createGoal, createProject, createTag, deleteCategoryRule, downloadBackup, exportProject, getBudgetAnalysis, getCategoryRules, getDashboard, getInstitutions, getPlanning, getProjects, getTags, getTellerStatus, getTransactions, previewCategory, registerTellerEnrollment, renameInstitution, requestPlanningAssistant, resetAreas, resetSession, restoreBackup, saveCategoryMatches, syncTellerNow, updateCategory, updateProject, updateTag, updateTransaction, updateTransactionCategory, uploadBudget, uploadReceipt, uploadTransactions } from "./lib/api";
 import "./styles.css";
+import DemoApp from "./DemoApp";
 
 function money(value) {
   return Number(value || 0).toLocaleString(undefined, { style: "currency", currency: "USD" });
@@ -48,7 +49,7 @@ function AccessGate({ onUnlock }) {
   return <main className="login-screen"><section className="login-card"><p className="eyebrow dark">Private household workspace</p><h1>Financial Control Center</h1><p>Use Touch ID, Windows Hello, or your device PIN. Your biometric never leaves your device.</p>{registering ? <><input value={name} onChange={e=>setName(e.target.value)} placeholder="Your name"/><input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email address" type="email"/><button onClick={register}>Register this device</button></> : <button onClick={login}>Sign in with a passkey</button>}{error&&<div className="notice">{error}</div>}<small>Additional users can be registered after sign-in. Production hosting should validate WebAuthn challenges on the server.</small></section></main>;
 }
 
-function App() {
+function ExistingWorkspace() {
   const [dashboard, setDashboard] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [analysis, setAnalysis] = useState(null);
@@ -543,6 +544,11 @@ if(event.target.value==="__new__"){setCategoryCreator({transaction});setNewCateg
     {resetPrompt&&<div className="modal-backdrop" role="dialog" aria-modal="true"><div className="dialog-card"><h2>Start over?</h2><p>Select exactly what FCC should reset. This cannot be undone.</p><div className="reset-list">{Object.entries({transactions:"Imported transactions",budget:"Budget",categorization:"Categorization",projects:"Transaction tracking assignments",project_definitions:"Projects and project accounts",notes:"Transaction notes",portfolio:"Portfolio",goals:"Goals",rules:"Find & Assign rules"}).map(([key,label])=><label key={key}><input type="checkbox" checked={resetSelections[key]} onChange={event=>setResetSelections(current=>({...current,[key]:event.target.checked}))}/>{label}</label>)}</div><div className="dialog-actions"><button className="danger-button" onClick={confirmReset}>Reset selected areas</button><button className="secondary" onClick={()=>setResetPrompt(false)}>Cancel</button></div></div></div>}
     {goalPrompt&&<div className="modal-backdrop" role="dialog" aria-modal="true"><div className="goal-dialog"><Sparkles size={28}/><h2>You’re all done. Ready to set some goals?</h2><p>Your transactions are categorized. FCC can recommend a practical starting set based on cash flow, debt, savings, and planned investments.</p><div><button onClick={()=>{setGoalPrompt(false);setActiveView("dashboard");setPlanningTab("goals")}}>Help me decide</button><button className="secondary" onClick={()=>setGoalPrompt(false)}>Not now</button></div></div></div>}
   </main>;
+}
+
+function App() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("workspace") === "1" ? <ExistingWorkspace /> : <DemoApp />;
 }
 
 createRoot(document.getElementById("root")).render(<App />);
