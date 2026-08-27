@@ -1,9 +1,4 @@
-:root {
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  color: #172033;
-  background: #f4f7fb;
-}
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;background:#f4f7fb}*{box-sizing:border-box}body{margin:0}main{max-width:1320px;margin:0 auto;padding:32px}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}h1{margin:0;font-size:36px}h2{margin-top:0}p{color:#5f6b7a}.upload{background:#172033;color:white;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700}.upload input{display:none}.notice{padding:12px 16px;border-radius:12px;background:#e8eef8;margin-bottom:18px}.grid{display:grid;gap:16px}.kpis{grid-template-columns:repeat(5,1fr);margin-bottom:20px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}.card,.panel{background:white;border:1px solid #e1e7ef;border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(23,32,51,.05)}.label{color:#6b7687;font-size:13px;margin-bottom:8px}.kpi{font-size:26px;font-weight:800}.adu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.progress-wrap{margin-top:20px}.progress-label{font-weight:700;margin-bottom:8px}.progress{height:16px;background:#e6ebf2;border-radius:999px;overflow:hidden}.progress>div{height:100%;background:#172033}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid #e6ebf2;padding:10px 8px;text-align:left}th{color:#5f6b7a;font-size:12px;text-transform:uppercase}@media(max-width:1000px){.kpis{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start;gap:16px}}
 
 .category-catalog{display:grid;gap:8px;max-height:310px;overflow:auto;padding-right:4px}
 .category-catalog details{border:1px solid #e1e7ef;border-radius:8px;padding:9px 10px}
@@ -310,8 +305,6 @@ th {
 .row-limit select { border: 1px solid #aebbd0; border-radius: 6px; padding: 6px 8px; background: white; color: #263650; }
 .review-mode .table-panel:last-of-type tbody tr { background: #fff8db; }
 .review-mode .table-panel:last-of-type tbody tr td:first-child { box-shadow: inset 3px 0 #d18b19; }
-<<<<<<< HEAD
-=======
 .top-nav { position: sticky; top: 0; z-index: 20; display: flex; gap: 6px; padding: 8px; margin: 0 0 20px; background: rgba(244,247,251,.95); border: 1px solid #dce3ed; border-radius: 10px; backdrop-filter: blur(12px); }
 .top-nav button { border: 0; border-radius: 7px; padding: 10px 14px; background: transparent; color: #43516a; font-weight: 800; cursor: pointer; }
 .top-nav button.active { background: #172033; color: white; }
@@ -342,7 +335,6 @@ th {
 .login-card h1, .login-card p { margin: 0; }.login-card input,.login-card button { border: 1px solid #aebbd0; border-radius: 8px; padding: 12px; font: inherit; }.login-card button { background:#172033;color:white;font-weight:850;cursor:pointer}.login-card small{color:#69778d;line-height:1.45}
 .modal-backdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(11,18,31,.58); }
 .goal-dialog { width: min(520px,100%); background: white; border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,.25); }.goal-dialog svg{color:#315bce}.goal-dialog div{display:flex;justify-content:center;gap:8px}.goal-dialog button{border:0;border-radius:8px;padding:11px 14px;background:#315bce;color:white;font-weight:850;cursor:pointer}.goal-dialog button.secondary{background:#eef2f7;color:#344258}
->>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
 
 @media (max-width: 1050px) {
   .kpis {
@@ -369,8 +361,6 @@ th {
   .planning-header { flex-direction: column; }
   .transaction-controls { flex-direction: column; }
 }
-<<<<<<< HEAD
-=======
 
 @media (max-width: 620px) {
   main { padding: 14px; }
@@ -489,4 +479,3 @@ tr.active-row td { background:#e6f6ef !important; box-shadow:inset 0 1px #75c3a6
 .planning-assistant textarea { min-height:80px; }
 .assistant-answer { grid-column:1/-1; padding:1rem; border-radius:10px; background:white; }
 @media(max-width:900px){.planning-assistant{grid-template-columns:1fr}.assistant-answer{grid-column:1}}
->>>>>>> b8f2fd7c8b9a85c9935ef8c6f858b80ac6b3d70d
