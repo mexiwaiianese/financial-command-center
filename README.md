@@ -30,6 +30,14 @@ npm run dev
 
 Open `http://localhost:5173` for the beta. The presentation demo itself is frontend-only and remains usable if Teller is not configured.
 
+### Hosted beta
+
+The static, fictional-data presentation beta is published with GitHub Pages at:
+
+`https://mexiwaiianese.github.io/financial-command-center/`
+
+GitHub Pages intentionally hosts only the frontend demo. The FastAPI data workspace, Teller integration, local SQLite data, and credentials remain local and are not included in the hosted artifact.
+
 ## Included in this MVP
 
 - FastAPI backend

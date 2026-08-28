@@ -90,6 +90,14 @@ function ExistingWorkspace() {
   const [categorySearch,setCategorySearch]=useState(""); const [categoryEdits,setCategoryEdits]=useState({}); const [planningRequest,setPlanningRequest]=useState(""); const [planningScope,setPlanningScope]=useState("household"); const [planningAnswer,setPlanningAnswer]=useState(null);
   const clientBackupSettings=()=>({category_sort:localStorage.getItem("fcc-category-sort")||"alphabetical",visible_columns:visibleColumns,privacy:{confirm_web_search:true}});
 
+  useEffect(() => {
+    if (window.TellerConnect || document.querySelector("script[data-fcc-teller]")) return;
+    const script = document.createElement("script");
+    script.src = "https://cdn.teller.io/connect/connect.js";
+    script.dataset.fccTeller = "true";
+    document.head.appendChild(script);
+  }, []);
+
   async function refresh() {
     const [nextDashboard, nextTransactions, nextAnalysis, nextTellerStatus, nextProjects, nextPlanning,nextInstitutions,nextRules,nextTags] = await Promise.all([getDashboard(), getTransactions(), getBudgetAnalysis(), getTellerStatus(), getProjects(), getPlanning(),getInstitutions(),getCategoryRules(),getTags()]);
     setDashboard(nextDashboard);
