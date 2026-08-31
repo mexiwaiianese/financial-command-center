@@ -38,6 +38,8 @@ The static, fictional-data presentation beta is published with GitHub Pages at:
 
 GitHub Pages intentionally hosts only the frontend demo. The FastAPI data workspace, Teller integration, local SQLite data, and credentials remain local and are not included in the hosted artifact.
 
+The beta also demonstrates the intended advisor-platform control model: isolated firm and household roles, an advisor operating console, audit events, opportunity-based rather than directive language, calculation provenance, advisor approval, model evaluation results, and a fresh educational-use acknowledgment for every client-facing opportunity analysis. These are presentation workflows using fictional data; production enforcement still requires server-side tenancy, identity, authorization, persistence, and independent legal/security review.
+
 ## Included in this MVP
 
 - FastAPI backend
